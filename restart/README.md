@@ -1,0 +1,1 @@
+# Folder for storage of GAMESS restart files
