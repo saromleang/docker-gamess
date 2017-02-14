@@ -52,7 +52,7 @@ then apt-get update && apt-get install -y bzip2 wget make gcc gfortran \
 && apt-get autoremove -y; \
 fi
 
-ENV LD_LIBRARY_PATH=/opt/mpich/lib:/opt/atlas/lib:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH=/opt/atlas/lib:$LD_LIBRARY_PATH
 
 WORKDIR /usr/local/bin
 
@@ -77,8 +77,8 @@ RUN apt-get update && apt-get install -y wget nano csh make gcc gfortran \
 && sed -i 's/DOCKER_GMS_GFORTRAN_VERNO/5.4/g' install.info \
 && \
 if [ "$BLAS" = "atlas" ]; \
-then sed -i 's/DOCKER_GMS_MATHLIB/atlas/g' install.info \
-&& sed -i 's/DOCKER_GMS_DDI_COMM/sockets/g' install.info; \
+then && sed -i 's/DOCKER_GMS_MATHLIB_PATH/\/opt\/atlas\/lib/g' install.info \
+&& sed -i 's/DOCKER_GMS_MATHLIB/atlas/g' install.info \
 else sed -i 's/DOCKER_GMS_MATHLIB/none/g' install.info; \
 fi \
 && sed -i 's/DOCKER_GMS_DDI_COMM/sockets/g' install.info \
