@@ -56,7 +56,7 @@ We will launch a container to perform a GAMESS calculation. The container will d
   
   ```--rm``` automatically remove the container when it exits
   
-  ```-v /path/to/docker-gamess:/home/gamess``` binds the volume **/path/to/docker-gamess** on the host over to **/home/gamess** on the container
+  ```-v /path/to/docker-gamess:/home/gamess``` binds the volume **/path/to/docker-gamess** from the host over to **/home/gamess** on the container
   
   ```docker-gamess:public``` image name:image tag
   
