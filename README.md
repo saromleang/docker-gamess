@@ -19,7 +19,7 @@ Deployment of the General Atomic and Molecular Electronic Structure System (GAME
    ```
    cd docker-gamess
    ```
-5. Build the image:
+5. Build the image (choose with or without the ATLAS math library):
 
    without ATLAS math library:
    ```
