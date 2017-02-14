@@ -39,7 +39,7 @@ Deployment of the General Atomic and Molecular Electronic Structure System (GAME
    <pre><strong>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</strong>
 docker-gamess       public-atlas        xxxxxxxxxxxx        About an hour ago   630 MB</pre>
 
-** Usage: **
+**Usage:**
 
 *Overview:
 We will launch a container to perform a GAMESS run. The container will delete itself after the run is completed. Log files and restart files will be retained by mapping a host folder to the container.
@@ -50,7 +50,7 @@ We will launch a container to perform a GAMESS run. The container will delete it
   docker run --rm -v /path/to/docker-gamess:/home/gamess docker-gamess:public X-0165-thymine-X.inp -p 1
   ```
   
-  Explaination:
+  **Explaination:**
   
   ```docker run``` runs a command in a new container
   
@@ -64,7 +64,7 @@ We will launch a container to perform a GAMESS run. The container will delete it
   
   ```-p 1``` peform the calculation using 1 GAMESS compute process
   
-   Expected output:
+   **Expected output:**
 
    <pre>
 [Running input X-0165-thymine-X on 1 core(s)]
