@@ -78,7 +78,7 @@ RUN apt-get update && apt-get install -y wget nano csh make gcc gfortran \
 && \
 if [ "$BLAS" = "atlas" ]; \
 then sed -i 's/DOCKER_GMS_MATHLIB_PATH/\/opt\/atlas\/lib/g' install.info \
-&& sed -i 's/DOCKER_GMS_MATHLIB/atlas/g' install.info \
+&& sed -i 's/DOCKER_GMS_MATHLIB/atlas/g' install.info; \
 else sed -i 's/DOCKER_GMS_MATHLIB/none/g' install.info; \
 fi \
 && sed -i 's/DOCKER_GMS_DDI_COMM/sockets/g' install.info \
