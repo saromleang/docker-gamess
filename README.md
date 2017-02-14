@@ -41,7 +41,7 @@ docker-gamess       public-atlas        xxxxxxxxxxxx        About an hour ago   
 
 **Usage:**
 
-*Overview:
+*Overview:*
 We will launch a container to perform a GAMESS run. The container will delete itself after the run is completed. Log files and restart files will be retained by mapping a host folder to the container.
 
 1.  Execute the following commanded to perform a GAMESS run on 1 cpu:
