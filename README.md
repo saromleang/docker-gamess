@@ -37,7 +37,7 @@ Deployment of the General Atomic and Molecular Electronic Structure System (GAME
    You should see:
 
    <pre><strong>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</strong>
-docker-gamess       public-atlas        xxxxxxxxxxxx        About an hour ago   630 MB</pre>
+docker-gamess       public        xxxxxxxxxxxx        About an hour ago   630 MB</pre>
 
 **Usage:**
 
