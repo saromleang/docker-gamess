@@ -91,3 +91,22 @@ We will launch a container to perform a GAMESS calculation. The container will d
           \\\____\\\______/             
    </pre>
   
+   The log file: **X-0165-thymine-X.log** will be located in **/path/to/docker-gamess** and all restart and scratch files will be located in  **/path/to/docker-gamess/restart** and **/path/to/docker-gamess/scratch**, respectively.
+
+2. Remove the .dat file from the previous run:
+
+   ```
+   rm restart/X-0165-thymine-X.dat
+   ```
+
+3. Execute the following command to perform a GAMESS run on 2 cpus using sockets:
+
+  ```
+  docker run --rm -v /path/to/docker-gamess:/home/gamess docker-gamess:public X-0165-thymine-X.inp -p 2
+  ```
+
+4.  Execute the following command to output the syntax for running GAMESS on Docker:
+
+   ```
+   docker run --rm -v /path/to/docker-gamess:/home/gamess docker-gamess:public help
+   ```
