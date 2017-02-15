@@ -108,5 +108,5 @@ We will launch a container to perform a GAMESS calculation. The container will d
 4.  Execute the following command to output the syntax for running GAMESS on Docker:
 
    ```
-   docker run --rm -v /path/to/docker-gamess:/home/gamess docker-gamess:public help
+   docker run --rm docker-gamess:public help
    ```
