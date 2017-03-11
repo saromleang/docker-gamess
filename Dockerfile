@@ -23,7 +23,7 @@
 # /opt
 # └── /atlas (math library)
 #
-FROM ubuntu:latest
+FROM ubuntu:16.04
 MAINTAINER Sarom Leang "sarom@si.msg.chem.iastate.edu"
 #
 # Build argument. Modify by adding the following argument during docker build:
