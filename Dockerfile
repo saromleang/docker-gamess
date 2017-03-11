@@ -1,5 +1,5 @@
 #
-# GAMESS on UBUNTU Latest
+# GAMESS on UBUNTU 16.04
 #
 # Build settings:
 # Latest GNU compiler : 5.4
