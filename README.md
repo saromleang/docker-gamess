@@ -2,7 +2,7 @@
 Deployment of the General Atomic and Molecular Electronic Structure System (GAMESS) quantum chemistry code via a Docker container.
 
 **Requirements:**
-- Ubuntu 16.04 or higher
+- **Ubuntu 16.04 or higher**
 - Docker (download and install): https://www.docker.com/products/docker#/
 - GAMESS public release tarball gamess.tar.gz: http://www.msg.ameslab.gov/gamess/download.html
 
