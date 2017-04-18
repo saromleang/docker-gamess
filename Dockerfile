@@ -66,6 +66,7 @@ RUN apt-get update && apt-get install -y wget nano csh make gcc gfortran \
 && chmod +x free-sema.pl \
 && tar -xf gamess.tar.gz \
 && cd /usr/local/bin/gamess \
+&& mkdir -p object \
 && sed -i 's/case 5.3:/case 5.3:\n case 5.4:/g' config \
 && sed -i 's/case 5.3:/case 5.3:\n case 5.4:/g' comp \
 && wget --no-check-certificate https://www.dropbox.com/s/c0sulwqf3zkmh22/install.info.docker \
