@@ -71,22 +71,22 @@ RUN apt-get update && apt-get install -y wget nano csh make gcc gfortran \
 && sed -i 's/case 5.3:/case 5.3:\n case 5.4:/g' comp \
 && wget --no-check-certificate https://www.dropbox.com/s/c0sulwqf3zkmh22/install.info.docker \
 && mv install.info.docker install.info\
-&& sed -i 's/DOCKER_GMS_PATH/\/usr\/local\/bin\/gamess/g' install.info \
-&& sed -i 's/DOCKER_GMS_BUILD_DIR/\/usr\/local\/bin\/gamess/g' install.info \
-&& sed -i 's/DOCKER_GMS_TARGET/linux64/g' install.info \
-&& sed -i 's/DOCKER_GMS_FORTRAN/gfortran/g' install.info \
-&& sed -i 's/DOCKER_GMS_GFORTRAN_VERNO/5.4/g' install.info \
+&& sed -i 's/TEMPLATE_GMS_PATH/\/usr\/local\/bin\/gamess/g' install.info \
+&& sed -i 's/TEMPLATE_GMS_BUILD_DIR/\/usr\/local\/bin\/gamess/g' install.info \
+&& sed -i 's/TEMPLATE_GMS_TARGET/linux64/g' install.info \
+&& sed -i 's/TEMPLATE_GMS_FORTRAN/gfortran/g' install.info \
+&& sed -i 's/TEMPLATE_GMS_GFORTRAN_VERNO/5.4/g' install.info \
 && \
 if [ "$BLAS" = "atlas" ]; \
-then sed -i 's/DOCKER_GMS_MATHLIB_PATH/\/opt\/atlas\/lib/g' install.info \
-&& sed -i 's/DOCKER_GMS_MATHLIB/atlas/g' install.info; \
-else sed -i 's/DOCKER_GMS_MATHLIB/none/g' install.info; \
+then sed -i 's/TEMPLATE_GMS_MATHLIB_PATH/\/opt\/atlas\/lib/g' install.info \
+&& sed -i 's/TEMPLATE_GMS_MATHLIB/atlas/g' install.info; \
+else sed -i 's/TEMPLATE_GMS_MATHLIB/none/g' install.info; \
 fi \
-&& sed -i 's/DOCKER_GMS_DDI_COMM/sockets/g' install.info \
-&& sed -i 's/DOCKER_GMS_LIBCCHEM/false/g' install.info \
-&& sed -i 's/DOCKER_GMS_PHI/false/g' install.info \
-&& sed -i 's/DOCKER_GMS_SHMTYPE/sysv/g' install.info \
-&& sed -i 's/DOCKER_GMS_OPENMP/false/g' install.info \
+&& sed -i 's/TEMPLATE_GMS_DDI_COMM/sockets/g' install.info \
+&& sed -i 's/TEMPLATE_GMS_LIBCCHEM/false/g' install.info \
+&& sed -i 's/TEMPLATE_GMS_PHI/false/g' install.info \
+&& sed -i 's/TEMPLATE_GMS_SHMTYPE/sysv/g' install.info \
+&& sed -i 's/TEMPLATE_GMS_OPENMP/false/g' install.info \
 && sed -e "s/^\*UNX/    /" tools/actvte.code > actvte.f \
 && gfortran -o /usr/local/bin/gamess/tools/actvte.x actvte.f \
 && rm -f actvte.f \
