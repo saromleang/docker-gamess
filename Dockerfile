@@ -104,7 +104,8 @@ fi \
 && apt-get clean autoclean \
 && apt-get autoremove -y \
 && mkdir /home/gamess /home/gamess/scratch /home/gamess/restart \
-&& rm -rf /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log
+&& rm -rf /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log \
+&& cp /usr/local/bin/gamess/machines/xeon-phi/rungms.interactive /usr/local/bin/gamess/rungms
 
 WORKDIR /home/gamess
 ENTRYPOINT ["/usr/local/bin/gms-docker"]
