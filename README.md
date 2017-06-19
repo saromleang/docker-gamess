@@ -2,7 +2,7 @@
 Deployment of the General Atomic and Molecular Electronic Structure System (GAMESS) quantum chemistry code via a Docker container.
 
 **Requirements:**
-- **Ubuntu 16.04 or higher**
+- **Ubuntu 12.04 or higher**
 - Docker (download and install): https://www.docker.com/products/docker#/
 - GAMESS public release tarball gamess.tar.gz: http://www.msg.ameslab.gov/gamess/download.html
 
@@ -14,21 +14,37 @@ Deployment of the General Atomic and Molecular Electronic Structure System (GAME
    ```
    git clone https://github.com/saromleang/docker-gamess.git docker-gamess
    ```
-3. Place a copy the GAMESS public release **gamess.tar.gz** into the **docker-gamess** folder that was just created.
-4. Navigate into the **docker-gamess** folder:
+3. Navigate into the **docker-gamess** folder:
 
    ```
    cd docker-gamess
    ```
+4. Understand available build arguments:
+   * Ubuntu release version. Optional. Default `16.04`
+     
+     `--build-arg UBUNTU_VERSION=[12.04|14.04|15.10|16.04]`
+
+   * Math library choice. Optional. Default `none`
+
+     `--build-arg BLAS=[none|atlas]`
+
+   * GAMESS weekly password for souce code download. Required. Available via email after [accepting GAMESS license agreement](http://www.msg.ameslab.gov/gamess/License_Agreement.html).
+
+     `--build-arg WEEKLY_PASSWORD=password`
+
+   * Reduce final image size. Optional. Default `true`
+
+     `--build-arg REDUCE_IMAGE_SIZE=[true|false]`
+
 5. Build the image (choose with or without the ATLAS math library):
 
    without ATLAS math library:
    ```
-   docker build -t docker-gamess:public .
+   docker build -t docker-gamess:public --build-arg UBUNTU_VERSION=16.04 --build-arg BLAS=none --build-arg WEEKLY_PASSWORD=xxxxxx .
    ```
    with ATLAS math library (Warning! Long build time):
    ```
-   docker build -t docker-gamess:public --buildarg BLAS=atlas .
+   docker build -t docker-gamess:public --build-arg UBUNTU_VERSION=16.04 --build-arg BLAS=atlas --build-arg WEEKLY_PASSWORD=xxxxxx .
    ```
 6. Verify the image **docker-gamess:public** is available to run:
 
@@ -37,8 +53,10 @@ Deployment of the General Atomic and Molecular Electronic Structure System (GAME
    ```
    You should see:
 
-   <pre><strong>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</strong>
-docker-gamess       public              xxxxxxxxxxxx        About an hour ago   630 MB</pre>
+```
+   REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+   docker-gamess       public              xxxxxxxxxxxx        About an hour ago   XXX MB
+```
 
 **Usage:**
 
