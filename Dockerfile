@@ -67,6 +67,9 @@ RUN apt-get update && apt-get install -y wget nano csh make gcc gfortran \
 && tar -xf gamess.tar.gz \
 && cd /usr/local/bin/gamess \
 && mkdir -p object \
+&& export GCC_MAJOR_VERSION=`gcc --version | grep ^gcc | sed 's/gcc (.*) //g' | grep -o '[0-9]\{1,3\}\.[0-9]\{0,3\}\.[0-9]\{0,3\}' | cut -d '.' -f 1` \
+&& export GCC_MINOR_VERSION=`gcc --version | grep ^gcc | sed 's/gcc (.*) //g' | grep -o '[0-9]\{1,3\}\.[0-9]\{0,3\}\.[0-9]\{0,3\}' | cut -d '.' -f 2` \
+&& export NUM_CPU_CORES=`grep -c ^processor /proc/cpuinfo` \
 && sed -i 's/case 5.3:/case 5.3:\n case 5.4:/g' config \
 && sed -i 's/case 5.3:/case 5.3:\n case 5.4:/g' comp \
 && wget --no-check-certificate https://www.dropbox.com/s/c0sulwqf3zkmh22/install.info.docker \
@@ -75,7 +78,7 @@ RUN apt-get update && apt-get install -y wget nano csh make gcc gfortran \
 && sed -i 's/TEMPLATE_GMS_BUILD_DIR/\/usr\/local\/bin\/gamess/g' install.info \
 && sed -i 's/TEMPLATE_GMS_TARGET/linux64/g' install.info \
 && sed -i 's/TEMPLATE_GMS_FORTRAN/gfortran/g' install.info \
-&& sed -i 's/TEMPLATE_GMS_GFORTRAN_VERNO/5.4/g' install.info \
+&& sed -i 's/TEMPLATE_GMS_GFORTRAN_VERNO/'"$GCC_MAJOR_VERSION"'.'"$GCC_MINOR_VERSION"'/g' install.info \
 && \
 if [ "$BLAS" = "atlas" ]; \
 then sed -i 's/TEMPLATE_GMS_MATHLIB_PATH/\/opt\/atlas\/lib/g' install.info \
@@ -95,8 +98,7 @@ fi \
 && echo "GMS_VERSION = 00" >> $makef \
 && echo "GMS_BUILD_PATH = /usr/local/bin/gamess" >> $makef \
 && echo 'include $(GMS_PATH)/Makefile.in' >> $makef \
-&& make \
-&& make checktest \
+&& cd /usr/local/bin/gamess && make -j $NUM_CPU_CORES || : && make -j $NUM_CPU_CORES || : && make checktest \
 && rm -rf /usr/local/bin/gamess/object \
 && cd /usr/local/bin/ \
 && rm -rf gamess.tar.gz \
@@ -105,7 +107,8 @@ fi \
 && apt-get autoremove -y \
 && mkdir /home/gamess /home/gamess/scratch /home/gamess/restart \
 && rm -rf /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log \
-&& cp /usr/local/bin/gamess/machines/xeon-phi/rungms.interactive /usr/local/bin/gamess/rungms
+&& cp /usr/local/bin/gamess/machines/xeon-phi/rungms.interactive /usr/local/bin/gamess/rungms \
+&& cat /usr/local/bin/gamess/install.info
 
 WORKDIR /home/gamess
 ENTRYPOINT ["/usr/local/bin/gms-docker"]
