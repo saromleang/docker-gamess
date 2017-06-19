@@ -4,7 +4,6 @@ Deployment of the General Atomic and Molecular Electronic Structure System (GAME
 **Requirements:**
 - **Ubuntu 12.04 or higher**
 - Docker (download and install): https://www.docker.com/products/docker#/
-- GAMESS public release tarball gamess.tar.gz: http://www.msg.ameslab.gov/gamess/download.html
 
 **Installation:**
 
