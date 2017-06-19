@@ -23,14 +23,28 @@
 # /opt
 # └── /atlas (math library)
 #
+
 FROM ubuntu:16.04
 MAINTAINER Sarom Leang "sarom@si.msg.chem.iastate.edu"
+
 #
 # Build argument. Modify by adding the following argument during docker build:
 #
 #   --build-arg BLAS=[none|atlas]
 #
 ARG BLAS=none
+
+# Build argument. The current week's GAMESS  source download password.
+#
+#   --build-arg WEEKLY_PASSWORD=password
+#
+ARG WEEKLY_PASSWORD=none
+
+# Build argument. Flag to reduce docker image size by un-needed files.
+#
+#   --build-arg REDUCE_IMAGE_SIZE=[true|false]
+#
+ARG REDUCE_IMAGE_SIZE=true
 
 WORKDIR /home
 
@@ -56,15 +70,14 @@ ENV LD_LIBRARY_PATH=/opt/atlas/lib:$LD_LIBRARY_PATH
 
 WORKDIR /usr/local/bin
 
-COPY gamess.tar.gz /usr/local/bin
-
-WORKDIR /usr/local/bin
 RUN apt-get update && apt-get install -y wget nano csh make gcc gfortran \
 && wget --no-check-certificate https://www.dropbox.com/s/f717qgl7yy1f1yd/gms-docker \
 && chmod +x gms-docker \
 && wget --no-check-certificate https://www.dropbox.com/s/pjnib04bgnndqse/free-sema.pl \
 && chmod +x free-sema.pl \
+&& wget --no-check-certificate --user=source --password=$WEEKLY_PASSWORD http://www.msg.chem.iastate.edu/GAMESS/download/source/gamess-current.tar.gz -O gamess.tar.gz \
 && tar -xf gamess.tar.gz \
+&& rm -rf gamess.tar.gz \
 && cd /usr/local/bin/gamess \
 && mkdir -p object \
 && export GCC_MAJOR_VERSION=`gcc --version | grep ^gcc | sed 's/gcc (.*) //g' | grep -o '[0-9]\{1,3\}\.[0-9]\{0,3\}\.[0-9]\{0,3\}' | cut -d '.' -f 1` \
@@ -101,13 +114,30 @@ fi \
 && cd /usr/local/bin/gamess && make -j $NUM_CPU_CORES || : && make -j $NUM_CPU_CORES || : && make checktest \
 && rm -rf /usr/local/bin/gamess/object \
 && cd /usr/local/bin/ \
-&& rm -rf gamess.tar.gz \
 && apt-get remove -y wget make \
 && apt-get clean autoclean \
 && apt-get autoremove -y \
 && mkdir /home/gamess /home/gamess/scratch /home/gamess/restart \
 && rm -rf /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log \
 && cp /usr/local/bin/gamess/machines/xeon-phi/rungms.interactive /usr/local/bin/gamess/rungms \
+&& if [ "$REDUCE_IMAGE_SIZE" = "true" ]; \
+then rm -rf /usr/local/bin/gamess/INPUT.DOC; \
+rm -rf /usr/local/bin/gamess/INTRO.DOC; \
+rm -rf /usr/local/bin/gamess/IRON.DOC; \
+rm -rf /usr/local/bin/gamess/PROG.DOC; \
+rm -rf /usr/local/bin/gamess/REFS.DOC; \
+rm -rf /usr/local/bin/gamess/TEST.DOC; \
+rm -rf /usr/local/bin/gamess/ddi; \
+rm -rf /usr/local/bin/gamess/graphics; \
+rm -rf /usr/local/bin/gamess/libcchem; \
+rm -rf /usr/local/bin/gamess/machines; \
+rm -rf /usr/local/bin/gamess/misc; \
+rm -rf /usr/local/bin/gamess/object; \
+rm -rf /usr/local/bin/gamess/qmnuc; \
+rm -rf /usr/local/bin/gamess/source; \
+rm -rf /usr/local/bin/gamess/tools; \
+rm -rf /usr/local/bin/gamess/vb2000; \
+fi \
 && cat /usr/local/bin/gamess/install.info
 
 WORKDIR /home/gamess
