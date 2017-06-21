@@ -26,11 +26,11 @@
 #
 # Build argument. Specifies Ubuntu Version used for the Docker build:
 #
-#   --build-arg UBUNTU_VERSION=[16.04|12.04|14.04|17.04]
+#   --build-arg IMAGE_VERSION=[16.04|12.04|14.04|17.04]
 #
-ARG UBUNTU_VERSION=16.04
+ARG IMAGE_VERSION=16.04
 
-FROM ubuntu:$UBUNTU_VERSION
+FROM ubuntu:$IMAGE_VERSION
 MAINTAINER Sarom Leang "sarom@si.msg.chem.iastate.edu"
 
 #
