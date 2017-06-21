@@ -21,7 +21,7 @@ Deployment of the General Atomic and Molecular Electronic Structure System (GAME
 4. Understand available build arguments:
    * Ubuntu release version. Optional. Default `16.04`
      
-     `--build-arg UBUNTU_VERSION=[12.04|14.04|15.10|16.04]`
+     `--build-arg IMAGE_VERSION=[12.04|14.04|15.10|16.04]`
 
    * Math library choice. Optional. Default `none`
 
@@ -39,11 +39,11 @@ Deployment of the General Atomic and Molecular Electronic Structure System (GAME
 
    without ATLAS math library:
    ```
-   docker build -t docker-gamess:public --build-arg UBUNTU_VERSION=16.04 --build-arg BLAS=none --build-arg WEEKLY_PASSWORD=xxxxxx --build-arg REDUCE_IMAGE_SIZE=true .
+   docker build -t docker-gamess:public --build-arg IMAGE_VERSION=16.04 --build-arg BLAS=none --build-arg REDUCE_IMAGE_SIZE=true --build-arg WEEKLY_PASSWORD=xxxxxx .
    ```
    with ATLAS math library (Warning! Long build time):
    ```
-   docker build -t docker-gamess:public --build-arg UBUNTU_VERSION=16.04 --build-arg BLAS=atlas --build-arg WEEKLY_PASSWORD=xxxxxx --build-arg REDUCE_IMAGE_SIZE=true .
+   docker build -t docker-gamess:public --build-arg IMAGE_VERSION=16.04 --build-arg BLAS=atlas --build-arg REDUCE_IMAGE_SIZE=true --build-arg WEEKLY_PASSWORD=xxxxxx .
    ```
 6. Verify the image **docker-gamess:public** is available to run:
 
