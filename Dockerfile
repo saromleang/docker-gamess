@@ -81,9 +81,6 @@ RUN apt-get update && apt-get install -y wget nano csh make gcc gfortran \
 && echo "\n\n\n\tDownloading Run Script\n\n\n" \
 && wget --no-check-certificate https://www.dropbox.com/s/f717qgl7yy1f1yd/gms-docker \
 && chmod +x gms-docker \
-&& echo "\n\n\n\tDownloading Semaphore Cleaner\n\n\n" \
-&& wget --no-check-certificate https://www.dropbox.com/s/pjnib04bgnndqse/free-sema.pl \
-&& chmod +x free-sema.pl \
 && echo "\n\n\n\tDowloading GAMESS\n\n\n" \
 && wget --no-check-certificate --user=source --password=$WEEKLY_PASSWORD http://www.msg.chem.iastate.edu/GAMESS/download/source/gamess-current.tar.gz -O gamess.tar.gz \
 && tar -xf gamess.tar.gz \
