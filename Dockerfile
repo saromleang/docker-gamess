@@ -87,12 +87,12 @@ RUN apt-get update && apt-get install -y wget nano csh make gcc gfortran \
    && rm -rf gamess.tar.gz \
    && cd /usr/local/bin/gamess \
    && mkdir -p object \
-&& export GCC_MAJOR_VERSION=`gcc --version | grep ^gcc | sed 's/gcc (.*) //g' | grep -o '[0-9]\{1,3\}\.[0-9]\{0,3\}\.[0-9]\{0,3\}' | cut -d '.' -f 1` \
-&& export GCC_MINOR_VERSION=`gcc --version | grep ^gcc | sed 's/gcc (.*) //g' | grep -o '[0-9]\{1,3\}\.[0-9]\{0,3\}\.[0-9]\{0,3\}' | cut -d '.' -f 2` \
-&& export NUM_CPU_CORES=`grep -c ^processor /proc/cpuinfo` \
-&& sed -i 's/case 5.3:/case 5.3:\n case 5.4:/g' config \
-&& sed -i 's/case 5.3:/case 5.3:\n case 5.4:/g' comp \
 && echo "\n\n\n\tSetting Up install.info\n\n\n" \
+   && export GCC_MAJOR_VERSION=`gcc --version | grep ^gcc | sed 's/gcc (.*) //g' | grep -o '[0-9]\{1,3\}\.[0-9]\{0,3\}\.[0-9]\{0,3\}' | cut -d '.' -f 1` \
+   && export GCC_MINOR_VERSION=`gcc --version | grep ^gcc | sed 's/gcc (.*) //g' | grep -o '[0-9]\{1,3\}\.[0-9]\{0,3\}\.[0-9]\{0,3\}' | cut -d '.' -f 2` \
+   && export NUM_CPU_CORES=`grep -c ^processor /proc/cpuinfo` \
+   && sed -i 's/case 5.3:/case 5.3:\n case 5.4:/g' config \
+   && sed -i 's/case 5.3:/case 5.3:\n case 5.4:/g' comp \
    && wget --no-check-certificate https://www.dropbox.com/s/c0sulwqf3zkmh22/install.info.docker \
    && mv install.info.docker install.info\
    && sed -i 's/TEMPLATE_GMS_PATH/\/usr\/local\/bin\/gamess/g' install.info \
