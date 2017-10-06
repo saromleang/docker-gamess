@@ -93,8 +93,7 @@ RUN apt-get update && apt-get install -y wget nano csh make gcc gfortran \
    && export NUM_CPU_CORES=`grep -c ^processor /proc/cpuinfo` \
    && sed -i 's/case 5.3:/case 5.3:\n case 5.4:/g' config \
    && sed -i 's/case 5.3:/case 5.3:\n case 5.4:/g' comp \
-   && wget --no-check-certificate https://www.dropbox.com/s/c0sulwqf3zkmh22/install.info.docker \
-   && mv install.info.docker install.info\
+   && cp misc/automation/install.info.template install.info \
    && sed -i 's/TEMPLATE_GMS_PATH/\/usr\/local\/bin\/gamess/g' install.info \
    && sed -i 's/TEMPLATE_GMS_BUILD_DIR/\/usr\/local\/bin\/gamess/g' install.info \
    && sed -i 's/TEMPLATE_GMS_TARGET/linux64/g' install.info \
@@ -111,6 +110,9 @@ RUN apt-get update && apt-get install -y wget nano csh make gcc gfortran \
    && sed -i 's/TEMPLATE_GMS_PHI/false/g' install.info \
    && sed -i 's/TEMPLATE_GMS_SHMTYPE/sysv/g' install.info \
    && sed -i 's/TEMPLATE_GMS_OPENMP/false/g' install.info \
+   && sed -i 's/TEMPLATE_EFP_OPENMP/false/g' install.info \
+   && sed -i 's/TEMPLATE_MAKEFP_OPENMP/false/g' install.info \
+   && sed -i 's/TEMPLATE_RIMP2_OPENMP/false/g' install.info \
    && sed -e "s/^\*UNX/    /" tools/actvte.code > actvte.f \
 && echo "\n\n\n\tCompiling actvte.x\n\n\n" \
    && gfortran -o /usr/local/bin/gamess/tools/actvte.x actvte.f \
@@ -135,6 +137,7 @@ RUN apt-get update && apt-get install -y wget nano csh make gcc gfortran \
    && rm -rf /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log \
 && echo "\n\n\n\tRun Support\n\n\n" \
    && cp /usr/local/bin/gamess/machines/xeon-phi/rungms.interactive /usr/local/bin/gamess/rungms \
+   && sed -i 's/#OVERRIDE USERSCR/set USERSCR=\/home\/gamess\/restart/g' /usr/local/bin/gamess/rungms \
    && mkdir /home/gamess /home/gamess/scratch /home/gamess/restart \
 && if [ "$REDUCE_IMAGE_SIZE" = "true" ]; \
    then echo "\n\n\n\tDeleting un-need files\n\n\n"; \
